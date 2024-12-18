@@ -11,6 +11,10 @@
 
         <a href="{{ route('users.create') }}" class="btn btn-primary mb-3">Add User</a>
 
+        <!-- Button to the Blog Page -->
+        <a href="{{ route('posts.index') }}" class="btn btn-secondary mb-3">Go to Blog</a> <!-- Adjust 'blog.index' to your actual route name -->
+
+
         <table class="table">
             <thead>
                 <tr>
