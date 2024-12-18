@@ -32,8 +32,6 @@ Route::resource('posts', PostController::class);
 Route::resource('posts.comments', CommentController::class);
 Route::get('posts/{post}/comments/{comment}/edit', [CommentController::class, 'edit'])->name('comments.edit');
 Route::put('posts/{post}/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
-Route::delete('posts/{post}/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
-
 Route::delete('posts/{post}/comments/{comment}', [CommentController::class, 'destroy'])->name('posts.comments.destroy');
 
 
