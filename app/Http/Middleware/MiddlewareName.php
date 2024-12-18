@@ -30,10 +30,13 @@ return [
         \Illuminate\View\Middleware\ShareErrorsFromSession::class,
         \App\Http\Middleware\VerifyCsrfToken::class,
         \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        \App\Http\Middleware\IsAdmin::class, // Add your middleware here
+
     ],
 
     'api' => [
         \Illuminate\Routing\Middleware\SubstituteBindings::class,
         JWTAuthMiddleware::class, // Add JWT Middleware here
+        IsAdmin::class,
     ],
 ];

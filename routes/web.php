@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\User\UserController;
+use App\Http\Middleware\IsAdmin;
 
 Route::get('/', function () {
     return view('welcome');
@@ -14,15 +17,15 @@ Route::get('/greeting', function () {
 Route::middleware('api')->get('/protected', function () {
     return response()->json(['message' => 'You are authenticated']);
 });
-Route::get('/login', function () {
-    return 'Hello login page';
-});
-
-Route::post('/login', [AuthController::class, 'login']);
-
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::resource('admins', AdminController::class);
+Route::get('admins', [AdminController::class, 'index'])->name('auth.user');
 
-Route::get('user/home', [App\Http\Controllers\HomeController::class, 'index'])->name('user.home');
+Route::resource('users', UserController::class);
+Route::get('users', [UserController::class, 'index'])->name('user.user')->middleware('IsAdmin');
+
+
+
+
