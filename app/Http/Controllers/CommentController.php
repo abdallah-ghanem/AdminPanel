@@ -28,6 +28,8 @@ class CommentController extends Controller
         return redirect()->route('posts.show', $postId)->with('success', 'Comment added successfully!');
     }
 
+
+
     // Update a comment
     public function edit($postId, $commentId)
     {

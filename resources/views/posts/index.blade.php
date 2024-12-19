@@ -30,5 +30,9 @@
                 @endforeach
             </tbody>
         </table>
+        <!-- Pagination Links -->
+    <div class="d-flex justify-content-center">
+        {{ $posts->appends(['per_page' => $perPage])->links() }}
+    </div>
     </div>
 @endsection

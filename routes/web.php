@@ -29,6 +29,8 @@ Route::resource('users', UserController::class);
 Route::get('users', [UserController::class, 'index'])->name('user.user')->middleware('IsAdmin');
 
 Route::resource('posts', PostController::class);
+Route::get('posts/{post}/comments', [PostController::class, 'comments'])->name('posts.comments.index');  // Add route for paginated comments
+
 Route::resource('posts.comments', CommentController::class);
 Route::get('posts/{post}/comments/{comment}/edit', [CommentController::class, 'edit'])->name('comments.edit');
 Route::put('posts/{post}/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');

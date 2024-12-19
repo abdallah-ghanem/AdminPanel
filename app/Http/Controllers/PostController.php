@@ -8,17 +8,32 @@ use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
-    // Display a list of posts
-    public function index()
+    // Display a list of posts with pagination
+    public function index(Request $request)
     {
-        $posts = Post::all();
-        return view('posts.index', compact('posts'));
+    // Get the number of posts per page from the query parameter or default to 5
+    $perPage = $request->get('per_page', 5);
+
+    // Fetch paginated posts
+    $posts = Post::paginate($perPage);
+
+    // Pass the paginated posts and the selected perPage value to the view
+    return view('posts.index', compact('posts', 'perPage'));
     }
 
+
     // Show a single post
-    public function show(Post $post)
+    // Show a post with paginated comments
+    public function show($postId, Request $request)
     {
-        return view('posts.show', compact('post'));
+        // Fetch post
+        $post = Post::findOrFail($postId);
+
+        // Pagination setup: fetch comments and allow user to set per-page items
+        $perPage = $request->get('per_page', 3);
+        $comments = $post->comments()->paginate($perPage);
+
+        return view('posts.show', compact('post', 'comments', 'perPage'));
     }
 
     // Show the form to create a new post

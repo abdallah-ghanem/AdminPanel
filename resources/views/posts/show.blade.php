@@ -6,7 +6,19 @@
         <p>{{ $post->content }}</p>
 
         <h2>Comments</h2>
-        @foreach($post->comments as $comment)
+
+        <!-- Dropdown to select comments per page -->
+        <form method="GET" action="{{ route('posts.show', $post->id) }}">
+            <label for="per_page">Comments per page:</label>
+            <select name="per_page" id="per_page" onchange="this.form.submit()">
+                <option value="5" {{ $perPage == 5 ? 'selected' : '' }}>5</option>
+                <option value="10" {{ $perPage == 10 ? 'selected' : '' }}>10</option>
+                <option value="20" {{ $perPage == 20 ? 'selected' : '' }}>20</option>
+            </select>
+        </form>
+
+        <!-- Display comments -->
+        @foreach($comments as $comment)
             <div>
                 <p>{{ $comment->content }}</p>
 
@@ -22,6 +34,12 @@
             </div>
         @endforeach
 
+        <!-- Pagination Links -->
+        <div class="d-flex justify-content-center">
+            {{ $comments->appends(['per_page' => $perPage])->links() }}
+        </div>
+
+        <!-- Add Comment Form -->
         <h3>Add Comment</h3>
         <form action="{{ route('posts.comments.store', $post->id) }}" method="POST">
             @csrf
