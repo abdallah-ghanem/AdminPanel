@@ -35,6 +35,7 @@ class CommentController extends Controller
         $post = Post::findOrFail($postId);
         $comment = Comment::findOrFail($commentId);
 
+
         // Return the edit view with the comment
         return view('comments.edit', compact('post', 'comment'));
     }
@@ -48,6 +49,7 @@ class CommentController extends Controller
 
         // Find the comment and update it
         $comment = Comment::findOrFail($commentId);
+        $this->authorize('update', $comment);
         $comment->update([
             'content' => $request->content,
         ]);
@@ -58,6 +60,7 @@ class CommentController extends Controller
     // Delete a comment
     public function destroy(Post $post, Comment $comment)
     {
+        $this->authorize('delete', $comment);
         $comment->delete();
         return redirect()->route('posts.show', $post->id)->with('success', 'Comment deleted successfully');
     }

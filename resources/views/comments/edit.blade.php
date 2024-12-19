@@ -16,7 +16,7 @@
         @endif
 
         <!-- Comment edit form -->
-        <form action="{{ route('comments.update', ['post' => $post->id, 'comment' => $comment->id]) }}" method="POST">
+        <form action="{{ route('posts.comments.update', ['post' => $post->id, 'comment' => $comment->id]) }}" method="POST">
             @csrf
             @method('PUT') <!-- Indicate that we are updating the resource -->
 

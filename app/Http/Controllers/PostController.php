@@ -60,6 +60,7 @@ class PostController extends Controller
             'content' => 'required',
         ]);
 
+        $this->authorize('update', $post);
         $post->update($request->all());
         return redirect()->route('posts.index')->with('success', 'Post updated successfully');
     }
@@ -67,6 +68,7 @@ class PostController extends Controller
     // Delete a post
     public function destroy(Post $post)
     {
+        $this->authorize('delete', $post);
         $post->delete();
         return redirect()->route('posts.index')->with('success', 'Post deleted successfully');
     }
