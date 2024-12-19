@@ -5,9 +5,33 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
+use OpenApi\Annotations as OA;
 
 class PostController extends Controller
 {
+    /**
+     * @OA\Get(
+     *     path="/api/posts",
+     *     summary="Display a list of posts with pagination",
+     *     tags={"Posts"},
+     *     @OA\Parameter(
+     *         name="per_page",
+     *         in="query",
+     *         description="Number of posts per page",
+     *         required=false,
+     *         @OA\Schema(type="integer", default=5)
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="A list of posts",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/Post")
+     *         )
+     *     )
+     * )
+     */
+    
     // Display a list of posts with pagination
     public function index(Request $request)
     {
